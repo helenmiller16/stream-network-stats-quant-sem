@@ -3,9 +3,9 @@ library(ggplot2)
 library(data.table)
 
 use_id <- 44230000861
-source("C:/Users/helen/OneDrive/Documents/mekong/tsl-nutrients/03_figures/themes.R")
+source("figures/themes.R")
 
-file_dir <- here::here("data/output/daily_medians")
+file_dir <- ("C:/github/lmb-metabolism-sensing/data/output/daily_medians")
 files <- list.files(file_dir)
 files <- files[grepl("daily_medians_sentinel_100mbuffer_",  files)]
 
@@ -47,13 +47,13 @@ wide[, ndci := (rededge1 - red)/(rededge1 + red)]
 wide[, ndti := (red - green)/(red + green)]
 
 # After
-data_after <- fread(('modeling_output_spacetime_ndti.csv'))
-data_spatial <- fread("data_spatial_only_ndti.csv")
+data_after <- fread(('output/modeling_output_spacetime_ndti.csv'))
+data_spatial <- fread("output/data_spatial_only_ndti.csv")
 
 # Make a map of data at first three days
 
 ## spatial data ----- 
-river_geom <- st_read("river_geom_modeled.geojson") 
+river_geom <- st_read("data/river_geom_modeled.geojson") 
 pred_space_sf <- merge(river_geom, data_spatial,by = "reach_id", all.x = TRUE, all.y = TRUE)
 data_sf <- merge(river_geom, wide, by = "reach_id", all.x = TRUE, all.y = TRUE)
 pred_sf <- merge(river_geom, data_after, by = "reach_id", all.x = TRUE, all.y = TRUE)
@@ -89,7 +89,7 @@ basemap_ggplot(map_service = "esri",
   scale_y_continuous(expand = c(0, 0))
   
 
-png("ndti_data_map.png", width = 8, height = 3, units = "in", res = 240)
+png("figures/ndti_data_map.png", width = 8, height = 3, units = "in", res = 240)
 basemap_ggplot(map_service = "esri", 
                map_type = "world_hillshade",
                ext = st_buffer(data_sf, 10000), 
@@ -133,7 +133,7 @@ basemap_ggplot(map_service = "esri",
 dev.off()
 
 
-png("ndti_preds_spatial_map.png", width = 8, height = 3, units = "in", res = 240)
+png("figures/ndti_preds_spatial_map.png", width = 8, height = 3, units = "in", res = 240)
 basemap_ggplot(map_service = "esri", 
                map_type = "world_hillshade",
                ext = st_buffer(data_sf, 10000)) + 
@@ -166,7 +166,7 @@ dev.off()
 
 
 
-png("ndti_preds_spacetime_map.png", width = 8, height = 3, units = "in", res = 240)
+png("figures/ndti_preds_spacetime_map.png", width = 8, height = 3, units = "in", res = 240)
 basemap_ggplot(map_service = "esri", 
                map_type = "world_hillshade",
                ext = st_buffer(data_sf, 10000), 

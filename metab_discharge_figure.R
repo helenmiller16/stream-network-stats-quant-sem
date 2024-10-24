@@ -8,11 +8,11 @@ skg_metab[, GPP := ifelse(GPP < 0, 0, GPP)]
 water_level <- fread("C:/github/mekong-remote-sensing/data/mrc20240117042527/Water Level.Telemetry@KH_014003_[Koh Key].csv")
 
 # And predicted NDCI
-ndci <- fread("C:/github/lmb-metabolism-sensing/predict_reflectance/quant_seminar/modeling_output_spacetime_ndci.csv")
+ndci <- fread("output/modeling_output_spacetime_ndci.csv")
 ndci[, reach_id := as.character(reach_id)]
 ndci <- ndci[reach_id == "44240200011", ]
 
-ndti <- fread("C:/github/lmb-metabolism-sensing/predict_reflectance/quant_seminar/modeling_output_spacetime_ndti.csv")
+ndti <- fread("output/modeling_output_spacetime_ndti.csv")
 ndti[, reach_id := as.character(reach_id)]
 ndti <- ndti[reach_id == "44240200011", ]
 
@@ -42,7 +42,7 @@ ndti_trimmed <- ndti[date> as.POSIXct("2023-05-17 00:00:00", tz = "Asia/Phnom_Pe
 w_mult <- 1.8
 w_add <- 4
 
-png("skg_DO_vs_ndti_preds.png", width = 1000, height = 500, type = "windows", res = 120, bg = "transparent")
+png("figures/skg_DO_vs_ndti_preds.png", width = 1000, height = 500, type = "windows", res = 120, bg = "transparent")
 ggplot() + 
   # geom_area(data = water_trimmed, aes(x = datetime, y= w_mult*Value+w_add), 
   #           fill = "#208dcc60", 

@@ -21,7 +21,7 @@ invlogit <- function(x) {
 
 
 use_id <- 44240200011
-source("C:/Users/helen/OneDrive/Documents/mekong/tsl-nutrients/03_figures/themes.R")
+source("figures/themes.R")
 
 # load data ----- 
 ## reflectance data -----
@@ -65,8 +65,8 @@ setnames(wide, "time", "date")
 
 ## spatial data ----- 
 
-if (!file.exists("river_geom_modeled.geojson")) {
-  river_geom <- st_read("C:/github/lmb-metabolism-sensing/data/rivers.geojson") |> 
+if (!file.exists("data/river_geom_modeled.geojson")) {
+  river_geom <- st_read("data/rivers.geojson") |> 
     st_transform("EPSG:32648")
   river_geom_ <- river_geom[river_geom$reach_id %in% wide$reach_id, ]
   
@@ -83,9 +83,9 @@ if (!file.exists("river_geom_modeled.geojson")) {
     return(r_g)
   }
   river_geom <- fix_missing(river_geom_)
-  st_write(river_geom, "river_geom_modeled.geojson")
+  st_write(river_geom, "data/river_geom_modeled.geojson")
 } else {
-  river_geom <- st_read("river_geom_modeled.geojson")
+  river_geom <- st_read("data/river_geom_modeled.geojson")
 }
 
 network <- as_sfnetwork(river_geom) 
@@ -203,7 +203,7 @@ if (fit_temporal) {
   z_t$se <- rand[, 'Std. Error']
   
   
-  fwrite(z_t, paste0("modeling_output_time_", use_id, "_ndti.csv"))
+  fwrite(z_t, paste0("output/modeling_output_time_", use_id, "_ndti.csv"))
   
 }
 
@@ -305,7 +305,7 @@ if (fit_spatial) {
   }
   
   
-  fwrite(space_data, "data_spatial_only_ndti.csv")
+  fwrite(space_data, "output/data_spatial_only_ndti.csv")
 }
 
 
@@ -408,7 +408,7 @@ if (fit_spacetime) {
   
   # save result
   st_set_geometry(res, NULL) |>
-    fwrite('modeling_output_spacetime_ndti.csv')
+    fwrite('output/modeling_output_spacetime_ndti.csv')
   
   
 }

@@ -3,7 +3,7 @@ library(ggplot2)
 library(data.table)
 
 use_id <- 44230000861
-source("C:/Users/helen/OneDrive/Documents/mekong/tsl-nutrients/03_figures/themes.R")
+source("figures/themes.R")
 file_dir <- here::here("data/output/daily_medians")
 files <- list.files(file_dir)
 files <- files[grepl("daily_medians_sentinel_100mbuffer_",  files)]
@@ -85,29 +85,10 @@ wide[, turb := (289.29*pi*red)/(1-pi*red/.1641)]
 # After
 
 use_id <- 44240200011
-data_after <- fread(('modeling_output_spacetime_ndti.csv'))
-data_after_time <- fread(paste0('modeling_output_time_', use_id, '_ndti.csv'))
+data_after <- fread(('output/modeling_output_spacetime_ndti.csv'))
+data_after_time <- fread(paste0('output/modeling_output_time_', use_id, '_ndti.csv'))
 data_after[, reach_id := as.numeric(reach_id)]
 
- # id = 44230000861
-# #id = 44240500111
-# data_after[, reach_id := as.numeric(reach_id)]
-# reach_after <- data_after[reach_id == id]
-# reach <- wide[reach_id == id]
-# 
-# # use_id = 44230000861
-# use_id = c(44240500111, 44240600011, 44240700011)
-# use_id <- 44240200011
-# 
-# use_ids = c(#44240100011,
-#             44240300011,
-#             44240200011)
-# 
-# use_ids = c(44250000011, 44240200011)
-# 
-# 
-# 
-# use_id <- 44240200011
 # Before
 ggplot() + 
   geom_point(data = wide[reach_id %in% use_id & qc_percent > 0.25], 
@@ -130,7 +111,7 @@ ggplot() +
   ) +
   data_colors_dark
 
-ggsave("timeseries_data.png")
+ggsave("figures/timeseries_data.png")
 
 # After
 # time only
@@ -158,7 +139,7 @@ ggplot() +
   labs(x = "", 
        y = "NDTI", 
        title = "Predicted Turdibity index (time only model)")
-# ggsave("timeseries_temporal_interpolation.png")
+# ggsave("figures/timeseries_temporal_interpolation.png")
 
 data_after$reach_id <- as.character(data_after$reach_id)
 # spacetime
@@ -194,98 +175,8 @@ ggplot() +
        y = "NDTI",
        title = "Predicted Turbidity index (spatio-temporal model)") +
   data_colors_dark
-ggsave("timeseries_spatial_interpolation.png")
+ggsave("figures/timeseries_spatial_interpolation.png")
 
-ggplot() + 
-  geom_ribbon(data=data_after[reach_id == use_id], 
-              mapping = aes(x = date, 
-                  ymin = response - 2*se_response, 
-                  ymax = response + 2*se_response),
-              fill = 'lightblue', 
-              alpha = 0.4) + 
-  
-  geom_point(data = wide[reach_id == use_id & qc_percent > 0.25], 
-             mapping = aes(x = time, y = avw), 
-             color = 'darkblue') + 
-  geom_line(data = data_after[reach_id == use_id], 
-            mapping = aes(x = date, y = response), 
-            color = 'darkblue') + 
-  geom_point(data = data_after[reach_id == use_id], 
-            mapping = aes(x = date, y = response), 
-            color = 'darkblue', alpha = 0.2) + 
-
-# 
-#   geom_point(data = wide[reach_id == id-20 & qc_percent > 0.25],
-#              mapping = aes(x = time, y = avw),
-#              color = "yellow") +
-#   geom_line(data = data_after[reach_id == id-20],
-#             mapping = aes(x = date, y = response),
-#             color = "yellow") +
-# 
-#   geom_point(data = wide[reach_id == id-30 & qc_percent > 0.25],
-#              mapping = aes(x = time, y = avw),
-#              color = "orange") +
-#   geom_line(data = data_after[reach_id == id-30],
-#             mapping = aes(x = date, y = response),
-#             color = "orange") +
-# 
-#   geom_point(data = wide[reach_id == 44240500021 & qc_percent > 0.25],
-#              mapping = aes(x = time, y = avw),
-#              color = "red") +
-#   geom_line(data = data_after[reach_id == 44240500021],
-#             mapping = aes(x = date, y = response),
-#             color = "red") +
-#   # 
-#   geom_point(data = wide[reach_id == 44240200021 & qc_percent > 0.25],
-#              mapping = aes(x = time, y = avw),
-#              color = "darkred") +
-#   geom_line(data = data_after[reach_id == 44240200021],
-#             mapping = aes(x = date, y = response),
-#             color = "darkred") +
-  # 
-  
-  
-  tsl_theme +
-  labs(x = "", 
-       y = "AVW",
-       title = "Water color water year 2023") 
-
-
- # some other fun plots
-
-ggplot(wide[qc_percent > 0.25]) + 
-  geom_point(aes(x = sat,  y = ndci), 
-             color = wide[qc_percent > 0.25 ][['rgb']], 
-             size = 5) + 
-  #geom_path(aes(x = ndti,  y = ndci, group = reach_id)) +  
-  facet_wrap(~(ndti > -.025)) +
-  tsl_theme  
-
-ggplot(wide[qc_percent > 0.25]) + 
-  geom_point(aes(x = green_norm,  y = ndci), 
-             color = wide[qc_percent > 0.25 ][['rgb']], 
-             size = 5) + 
-  #geom_path(aes(x = ndti,  y = ndci, group = reach_id)) + 
-  tsl_theme  
-
-ggplot(wide[ qc_percent > 0.2 & reach_id == use_id]) + 
-  geom_line(data = wide[reach_id == use_id], 
-            mapping = aes(x = time,  y = qc_percent/2), alpha = 0.2) + 
-  geom_line(aes(x = time,  y = red_norm), 
-             color = 'orange') + 
-  geom_line(aes(x = time,  y = green_norm), 
-             color = 'darkgreen') + 
-  geom_line(aes(x = time,  y = rededge1_norm), 
-             color = 'red') + 
-  geom_line(aes(x = time,  y = nir_norm), 
-             color = 'darkred') + 
-  geom_line(aes(x = time,  y = blue_norm), 
-             color = 'blue') + 
-  geom_line(aes(x = time,  y = coastal_norm), 
-             color = 'purple') + 
- # geom_line(aes(x = time,  y = rededge1)) +
-  #geom_path(aes(x = time,  y = red_norm, group = reach_id)) + 
-  tsl_theme
 
 ggplot(wide[reach_id == use_id]) + 
   
