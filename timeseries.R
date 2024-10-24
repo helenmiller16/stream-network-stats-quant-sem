@@ -4,7 +4,7 @@ library(data.table)
 
 use_id <- 44230000861
 source("figures/themes.R")
-file_dir <- here::here("data/output/daily_medians")
+file_dir <- ("C:/github/lmb-metabolism-sensing/data/output/daily_medians")
 files <- list.files(file_dir)
 files <- files[grepl("daily_medians_sentinel_100mbuffer_",  files)]
 

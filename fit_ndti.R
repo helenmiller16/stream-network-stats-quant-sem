@@ -1,5 +1,5 @@
-fit_spacetime = FALSE
-fit_spatial = FALSE
+fit_spacetime = TRUE
+fit_spatial = TRUE
 fit_temporal = TRUE
 
 suppressPackageStartupMessages({
