@@ -68,8 +68,11 @@ $$
 and solving for $\boldsymbol \psi$, we get
 
 $$
-\boldsymbol \psi - (I - \Gamma)\beta C  \sim MVN(0, \Sigma) \\
-\Sigma  = (I - \Gamma)^{-1}V((I-\Gamma)^\top)^{-1}
+\boldsymbol \psi - (\boldsymbol I - \boldsymbol \Gamma)\boldsymbol \beta \boldsymbol C  \sim MVN(0, \boldsymbol \Sigma)
+$$
+
+$$
+\boldsymbol \Sigma  = (\boldsymbol I - \boldsymbol \Gamma)^{-1}\boldsymbol V((\boldsymbol I- \boldsymbol \Gamma)^\top)^{-1}
 $$
 
 
