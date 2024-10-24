@@ -1,1 +1,6 @@
-.Rproj*
+.Rproj.user
+
+
+# C++ compiled files
+*.o
+*.dll
