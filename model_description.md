@@ -64,6 +64,7 @@ coefficients. Then the vectorized form is
 $$
 \boldsymbol \psi = \Gamma \boldsymbol \psi + \boldsymbol \beta_c \boldsymbol C +\boldsymbol \epsilon 
 $$
+
 and solving for $\boldsymbol \psi$, we get
 
 $$
