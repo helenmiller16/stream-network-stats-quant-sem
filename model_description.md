@@ -55,10 +55,10 @@ $$
 We can also add covariates to the spatial process as 
 
 $$
-\psi_r = \sum_{s\in r'}w_{sr}\rho_{sr}\psi_s + \beta_c C_i + \epsilon_r
+\psi_r = \sum_{s\in r'}w_{sr}\rho_{sr}\psi_s + \beta_c C_r + \epsilon_r
 $$
 
-where $C_i$ is the vector of covariates for $\psi_i$ and $\beta$ is the vector of 
+where $C_r$ is the vector of covariates for $\psi_r$ and $\beta$ is the vector of 
 coefficients. Then the vectorized form is 
 
 $$
@@ -68,7 +68,7 @@ $$
 and solving for $\boldsymbol \psi$, we get
 
 $$
-\boldsymbol \psi - (\boldsymbol I - \boldsymbol \Gamma)\boldsymbol \beta \boldsymbol C  \sim MVN(0, \boldsymbol \Sigma)
+\boldsymbol \psi - (\boldsymbol I - \boldsymbol \Gamma)\boldsymbol \beta \boldsymbol C  \sim (\boldsymbol I - \boldsymbol \Gamma)MVN(0, \boldsymbol \Sigma)
 $$
 
 $$
