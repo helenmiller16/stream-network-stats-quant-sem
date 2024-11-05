@@ -68,7 +68,7 @@ $$
 and solving for $\boldsymbol \psi$, we get
 
 $$
-\boldsymbol \psi - (\boldsymbol I - \boldsymbol \Gamma))^{-1}\boldsymbol \beta \boldsymbol C  \sim (\boldsymbol I - \boldsymbol \Gamma))^{-1}MVN(0, \boldsymbol \Sigma)
+\boldsymbol \psi - (\boldsymbol I - \boldsymbol \Gamma)^{-1}\boldsymbol \beta \boldsymbol C  \sim (\boldsymbol I - \boldsymbol \Gamma)^{-1}MVN(0, \boldsymbol \Sigma)
 $$
 
 $$
