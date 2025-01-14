@@ -84,7 +84,7 @@ We add a spatio-temporal random variable, $\omega$.
 Let $\boldsymbol{\psi} \sim MVN(0, \Sigma)$. Then, 
 
 $$
-logit(\boldsymbol{x}_t) = \alpha + \beta_\psi\boldsymbol{\psi} + \beta_\omega\boldsymbol{\omega}_t
+logit( \boldsymbol x_t ) = \alpha + \beta_\psi \boldsymbol \psi + \beta_\omega \boldsymbol \omega_t
 $$
 
 where $\boldsymbol \psi$ is as defined above. The spatio-temporal component, 
